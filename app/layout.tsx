@@ -22,8 +22,8 @@ export default function RootLayout({
         <body className={openSans.className}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
+            defaultTheme="system"
+            enableSystem
             storageKey="conflict-theme"
           >
             {children}
