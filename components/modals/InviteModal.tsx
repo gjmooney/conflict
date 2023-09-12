@@ -61,6 +61,7 @@ const InviteModal = ({}: InviteModalProps) => {
           </Label>
           <div className="mt-2 flex items-center gap-x-2">
             <Input
+              readOnly
               disabled={isLoading}
               className="border-0 focus-visible:ring-offset-0"
               value={inviteUrl}
