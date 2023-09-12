@@ -4,6 +4,7 @@ import { useModal } from "@/hooks/useModalStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import FileUpload from "../FileUpload";
@@ -26,7 +27,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-interface CreateServerModalProps {}
+interface EditServerModalProps {}
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,11 +38,12 @@ const formSchema = z.object({
   }),
 });
 
-const CreateServerModal = ({}: CreateServerModalProps) => {
-  const { isOpen, onClose, type } = useModal();
+const EditServerModal = ({}: EditServerModalProps) => {
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "createServer";
+  const isModalOpen = isOpen && type === "editServer";
+  const { server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -51,11 +53,18 @@ const CreateServerModal = ({}: CreateServerModalProps) => {
     },
   });
 
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+  }, [form, server]);
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
       handleClose();
       router.refresh();
     } catch (error) {
@@ -125,7 +134,7 @@ const CreateServerModal = ({}: CreateServerModalProps) => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button variant={"primary"} disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
@@ -135,4 +144,4 @@ const CreateServerModal = ({}: CreateServerModalProps) => {
   );
 };
 
-export default CreateServerModal;
+export default EditServerModal;

@@ -42,15 +42,20 @@ const ServerHeader = ({ role, server }: ServerHeaderProps) => {
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium">
         {isModerator && (
           <DropdownMenuItem
-            className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50"
             onClick={() => onOpen("invite", { server })}
+            className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50"
           >
             Invite People
             <UserPlus className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50">
+          <DropdownMenuItem
+            className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50"
+            onClick={() => {
+              onOpen("editServer", { server });
+            }}
+          >
             Server Settings
             <Settings className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
