@@ -1,7 +1,7 @@
 interface ServerPageProps {}
 
 const ServerPage = ({}: ServerPageProps) => {
-  return <div>ServerPage</div>;
+  return <div className="h-full">ServerPage</div>;
 };
 
 export default ServerPage;
