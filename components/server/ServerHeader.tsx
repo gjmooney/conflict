@@ -1,3 +1,6 @@
+"use client";
+
+import { useModal } from "@/hooks/useModalStore";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
 import {
@@ -23,6 +26,8 @@ interface ServerHeaderProps {
 }
 
 const ServerHeader = ({ role, server }: ServerHeaderProps) => {
+  const { onOpen } = useModal();
+
   const isAdmin = role === MemberRole.ADMIN;
   // every admin is a mod as well
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
@@ -36,7 +41,10 @@ const ServerHeader = ({ role, server }: ServerHeaderProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium">
         {isModerator && (
-          <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50">
+          <DropdownMenuItem
+            className="cursor-pointer px-3 py-2 text-sm focus:bg-muted/50"
+            onClick={() => onOpen("invite", { server })}
+          >
             Invite People
             <UserPlus className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
@@ -66,6 +74,7 @@ const ServerHeader = ({ role, server }: ServerHeaderProps) => {
             <Trash className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
+        {/** Admins can't leave */}
         {!isAdmin && (
           <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-destructive focus:bg-muted/50">
             Leave Server
