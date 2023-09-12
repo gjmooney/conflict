@@ -59,7 +59,7 @@ const CreateServerModal = ({}: CreateServerModalProps) => {
       form.reset();
       router.refresh();
       //TODO ??
-      //window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log("error", error);
     }
