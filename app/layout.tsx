@@ -1,4 +1,5 @@
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ModalProvider } from "@/components/providers/ModalProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
@@ -26,6 +27,7 @@ export default function RootLayout({
             enableSystem
             storageKey="conflict-theme"
           >
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>
