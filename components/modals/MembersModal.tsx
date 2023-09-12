@@ -57,6 +57,25 @@ const MembersModal = ({}: MembersModalProps) => {
     return null;
   }
 
+  const onKick = async (memberId: string) => {
+    try {
+      setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server.id,
+        },
+      });
+      const response = await axios.delete(url);
+      router.refresh();
+      onOpen("members", { server: response.data });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId("");
+    }
+  };
+
   const onRoleChange = async (memberId: string, role: MemberRole) => {
     try {
       setLoadingId(memberId);
@@ -64,10 +83,8 @@ const MembersModal = ({}: MembersModalProps) => {
         url: `/api/members/${memberId}`,
         query: {
           serverId: server.id,
-          memberId,
         },
       });
-
       const response = await axios.patch(url, { role });
       router.refresh();
       onOpen("members", { server: response.data });
@@ -141,7 +158,10 @@ const MembersModal = ({}: MembersModalProps) => {
                           </DropdownMenuPortal>
                         </DropdownMenuSub>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-destructive">
+                        <DropdownMenuItem
+                          className="text-destructive"
+                          onClick={() => onKick(member.id)}
+                        >
                           <Gavel className="mr-2 h-4 w-4" />
                           Kick
                         </DropdownMenuItem>
