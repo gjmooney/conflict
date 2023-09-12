@@ -1,9 +1,9 @@
 "use client";
 
+import { useModal } from "@/hooks/useModalStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import FileUpload from "../FileUpload";
@@ -26,7 +26,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-interface InitialModalProps {}
+interface CreateServerModalProps {}
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,14 +37,11 @@ const formSchema = z.object({
   }),
 });
 
-const InitialModal = ({}: InitialModalProps) => {
+const CreateServerModal = ({}: CreateServerModalProps) => {
+  const { isOpen, onClose, type } = useModal();
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
 
-  // this stuff is to fix hydration warnings
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isModalOpen = isOpen && type === "createServer";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -68,12 +65,13 @@ const InitialModal = ({}: InitialModalProps) => {
     }
   };
 
-  if (!isMounted) {
-    return null;
-  }
+  const handleCLose = () => {
+    form.reset();
+    onClose();
+  };
 
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleCLose}>
       <DialogContent className="overflow-hidden bg-muted p-0">
         <DialogHeader className="px-6 pt-8 ">
           <DialogTitle className="text-center text-2xl">
@@ -139,4 +137,4 @@ const InitialModal = ({}: InitialModalProps) => {
   );
 };
 
-export default InitialModal;
+export default CreateServerModal;
