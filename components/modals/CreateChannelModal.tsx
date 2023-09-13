@@ -48,7 +48,7 @@ const formSchema = z.object({
 });
 
 const CreateChannelModal = ({}: CreateChannelModalProps) => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
   const params = useParams();
 
@@ -61,6 +61,8 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
       type: ChannelType.TEXT,
     },
   });
+
+  console.log(data.defaultChannelType);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -126,7 +128,7 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={data.defaultChannelType}
                     >
                       <FormControl>
                         <SelectTrigger className="border-0 capitalize outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">

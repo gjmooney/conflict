@@ -30,7 +30,9 @@ const ServerSection = ({
         <ActionTooltip label="Create Channel" side="top">
           <button
             className="hover:text-emerald-500"
-            onClick={() => onOpen("createChannel")}
+            onClick={() =>
+              onOpen("createChannel", { defaultChannelType: channelType })
+            }
           >
             <Plus className="h-4 w-4" />
           </button>
