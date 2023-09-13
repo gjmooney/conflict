@@ -4,8 +4,11 @@ import { ChannelType, MemberRole } from "@prisma/client";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
+import ServerChannel from "./ServerChannel";
 import ServerHeader from "./ServerHeader";
 import ServerSearch from "./ServerSearch";
+import ServerSection from "./ServerSection";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -121,6 +124,25 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             ]}
           />
         </div>
+        <Separator className="my-2 h-[2px] rounded-md bg-background" />
+        {!!textChannels?.length && (
+          <div className="mb-2">
+            <ServerSection
+              sectionType="channels"
+              channelType={ChannelType.TEXT}
+              label="Text Channels"
+              role={role}
+            />
+            {textChannels.map((channel) => (
+              <ServerChannel
+                key={channel.id}
+                channel={channel}
+                role={role}
+                server={server}
+              />
+            ))}
+          </div>
+        )}
       </ScrollArea>
     </div>
   );
