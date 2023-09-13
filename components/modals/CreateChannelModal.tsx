@@ -41,7 +41,7 @@ const formSchema = z.object({
     .min(1, {
       message: "Channel name is required",
     })
-    .refine((name) => name !== "general", {
+    .refine((name) => name.toLowerCase() !== "general", {
       message: "Channel name cannot be 'general'",
     }),
   type: z.nativeEnum(ChannelType),
