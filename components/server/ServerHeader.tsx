@@ -31,6 +31,7 @@ const ServerHeader = ({ role, server }: ServerHeaderProps) => {
   const isAdmin = role === MemberRole.ADMIN;
   // every admin is a mod as well
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
