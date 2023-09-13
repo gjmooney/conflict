@@ -150,7 +150,7 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
                 )}
               />
             </div>
-            <DialogFooter className="px-6 py-4">
+            <DialogFooter className="bg-background/10 px-6 py-4">
               <Button variant={"primary"} disabled={isLoading}>
                 Create
               </Button>

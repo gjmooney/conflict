@@ -89,7 +89,10 @@ const ServerHeader = ({ role, server }: ServerHeaderProps) => {
         )}
         {/** Admins can't leave */}
         {!isAdmin && (
-          <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-destructive focus:bg-muted/50">
+          <DropdownMenuItem
+            className="cursor-pointer px-3 py-2 text-sm text-destructive focus:bg-muted/50"
+            onClick={() => onOpen("leaveServer", { server })}
+          >
             Leave Server
             <LogOut className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
