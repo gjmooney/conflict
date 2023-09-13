@@ -32,10 +32,10 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
       )}
       onClick={() => {}}
     >
-      <Icon className="h-5 w-5 flex-shrink-0 group-hover:text-foreground/60" />
+      <Icon className="h-5 w-5 flex-shrink-0 text-foreground/60 group-hover:text-foreground" />
       <p
         className={cn(
-          "line-clamp-1 text-sm font-semibold transition group-hover:text-foreground/60",
+          "line-clamp-1 text-sm font-semibold text-foreground/60  transition group-hover:text-foreground",
           params?.channelId === channel.id && "text-emerald-700 ",
         )}
       >
@@ -45,15 +45,15 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
         role !== MemberRole.GUEST && (
           <div className="ml-auto flex items-center gap-x-2">
             <ActionTooltip label="Edit">
-              <Edit className="hidden h-4 w-4 group-hover:block group-hover:text-foreground/60" />
+              <Edit className="hidden h-4 w-4 text-foreground/60 group-hover:block group-hover:text-foreground" />
             </ActionTooltip>
             <ActionTooltip label="Delete">
-              <Trash className="hidden h-4 w-4 group-hover:block group-hover:text-destructive/60" />
+              <Trash className="hidden h-4 w-4 text-destructive/60 group-hover:block group-hover:text-destructive" />
             </ActionTooltip>
           </div>
         )}
       {channel.name.toLowerCase() === "general" && (
-        <Lock className="ml-auto h-4 w-4 group-hover:text-foreground/60" />
+        <Lock className="ml-auto h-4 w-4 text-foreground/60 group-hover:text-foreground" />
       )}
     </button>
   );
