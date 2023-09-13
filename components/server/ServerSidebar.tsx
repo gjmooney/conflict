@@ -7,6 +7,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import ServerChannel from "./ServerChannel";
 import ServerHeader from "./ServerHeader";
+import ServerMember from "./ServerMember";
 import ServerSearch from "./ServerSearch";
 import ServerSection from "./ServerSection";
 
@@ -176,6 +177,19 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 role={role}
                 server={server}
               />
+            ))}
+          </div>
+        )}
+        {!!members?.length && (
+          <div className="mb-2">
+            <ServerSection
+              sectionType="members"
+              label="Members"
+              role={role}
+              server={server}
+            />
+            {members.map((member) => (
+              <ServerMember key={member.id} />
             ))}
           </div>
         )}

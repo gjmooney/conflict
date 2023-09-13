@@ -27,7 +27,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
   return (
     <button
       className={cn(
-        "group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition hover:bg-background/60",
+        "group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition last:pb-4 hover:bg-background/60",
         params?.channelId === channel.id && "bg-emerald-700",
       )}
       onClick={() => {}}
