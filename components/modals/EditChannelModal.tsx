@@ -6,6 +6,7 @@ import { ChannelType } from "@prisma/client";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import queryString from "query-string";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "../ui/button";
@@ -33,7 +34,7 @@ import {
   SelectValue,
 } from "../ui/select";
 
-interface CreateChannelModalProps {}
+interface EditChannelModalProps {}
 
 const formSchema = z.object({
   name: z
@@ -47,32 +48,41 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 });
 
-const CreateChannelModal = ({}: CreateChannelModalProps) => {
+const EditChannelModal = ({}: EditChannelModalProps) => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
   const params = useParams();
 
-  const isModalOpen = isOpen && type === "createChannel";
+  const { channel, server } = data;
+
+  const isModalOpen = isOpen && type === "editChannel";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   });
 
   const isLoading = form.formState.isSubmitting;
 
+  useEffect(() => {
+    if (channel) {
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
+    }
+  }, [form, channel]);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = queryString.stringifyUrl({
-        url: "/api/channels",
+        url: `/api/channels/${channel?.id}`,
         query: {
-          serverId: params.serverId,
+          serverId: server?.id,
         },
       });
-      await axios.post(url, values);
+      await axios.patch(url, values);
       handleClose();
       router.refresh();
     } catch (error) {
@@ -90,7 +100,7 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
       <DialogContent className="overflow-hidden bg-muted p-0">
         <DialogHeader className="px-6 pt-8 ">
           <DialogTitle className="text-center text-2xl">
-            Create Channel
+            Edit Channel
           </DialogTitle>
         </DialogHeader>
 
@@ -126,7 +136,7 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
-                      defaultValue={data.defaultChannelType}
+                      defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger className="border-0 capitalize outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
@@ -152,7 +162,7 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
             </div>
             <DialogFooter className="bg-background/10 px-6 py-4">
               <Button variant={"primary"} disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
@@ -162,4 +172,4 @@ const CreateChannelModal = ({}: CreateChannelModalProps) => {
   );
 };
 
-export default CreateChannelModal;
+export default EditChannelModal;
