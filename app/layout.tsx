@@ -1,4 +1,5 @@
 import { ModalProvider } from "@/components/providers/ModalProvider";
+import { SocketProvider } from "@/components/providers/SocketProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -27,8 +28,10 @@ export default function RootLayout({
             enableSystem
             storageKey="conflict-theme"
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
