@@ -39,7 +39,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
     <button
       className={cn(
         "group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition last:pb-4 hover:bg-background/60",
-        params?.channelId === channel.id && "bg-emerald-700",
+        params?.channelId === channel.id && "bg-background/60 ",
       )}
       onClick={onClick}
     >
@@ -47,7 +47,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
       <p
         className={cn(
           "line-clamp-1 text-sm font-semibold text-foreground/60  transition group-hover:text-foreground",
-          params?.channelId === channel.id && "text-emerald-700 ",
+          params?.channelId === channel.id && "text-foreground",
         )}
       >
         {channel.name}

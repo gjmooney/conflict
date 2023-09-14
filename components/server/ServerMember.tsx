@@ -31,7 +31,7 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
     <button
       className={cn(
         "group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition last:pb-4 hover:bg-background/60",
-        params?.memberId === member.id && "bg-emerald-700",
+        params?.memberId === member.id && "bg-background/60",
       )}
       onClick={onClick}
     >
@@ -39,7 +39,7 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
       <p
         className={cn(
           "line-clamp-1 text-sm font-semibold text-foreground/60  transition group-hover:text-foreground",
-          params?.memberId === member.id && "text-emerald-700 ",
+          params?.memberId === member.id && "text-foreground ",
         )}
       >
         {member.profile.name}
