@@ -10,6 +10,7 @@ import EditServerModal from "../modals/EditServerModal";
 import InviteModal from "../modals/InviteModal";
 import LeaveServerModal from "../modals/LeaveServerModal";
 import MembersModal from "../modals/MembersModal";
+import MessageFileModal from "../modals/MessageFileModal";
 
 export const ModalProvider = () => {
   // Stop modals from rendering on server
@@ -33,6 +34,7 @@ export const ModalProvider = () => {
       <InviteModal />
       <LeaveServerModal />
       <MembersModal />
+      <MessageFileModal />
     </>
   );
 };
