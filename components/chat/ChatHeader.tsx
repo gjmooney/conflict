@@ -1,4 +1,5 @@
-import { Hash, Menu } from "lucide-react";
+import { Hash } from "lucide-react";
+import MobileToggle from "../MobileToggle";
 
 interface ChatHeaderProps {
   serverId: string;
@@ -10,7 +11,7 @@ interface ChatHeaderProps {
 const ChatHeader = ({ name, serverId, type, imageUrl }: ChatHeaderProps) => {
   return (
     <div className="flex h-12 items-center border-b-2 px-3 font-semibold">
-      <Menu />
+      <MobileToggle serverId={serverId} />
       {type === "channel" && <Hash className="mr-2 h-5 w-5" />}
       <p className="font-semibold ">{name}</p>
     </div>
