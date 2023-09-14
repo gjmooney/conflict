@@ -41,7 +41,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     include: {
       channels: {
         orderBy: {
-          createdAt: "desc",
+          createdAt: "asc",
         },
       },
       members: {
