@@ -35,6 +35,8 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
     onOpen(action, { channel, server });
   };
 
+  //test
+
   return (
     <button
       className={cn(
