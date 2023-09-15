@@ -5,6 +5,7 @@ import { Member, MemberRole, Profile } from "@prisma/client";
 import axios from "axios";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -52,6 +53,9 @@ const ChatItem = ({
   socketUrl,
   timestamp,
 }: ChatItemProps) => {
+  const router = useRouter();
+  const params = useParams();
+
   const [isEditing, setIsEditing] = useState(false);
 
   const { onOpen } = useModal();
@@ -108,16 +112,30 @@ const ChatItem = ({
     }
   };
 
+  const onMemberClick = () => {
+    if (member.id === currentMember.id) {
+      return;
+    }
+
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+  };
+
   return (
     <div className="group relative flex w-full items-center p-4 transition hover:bg-muted/10">
       <div className="group flex w-full items-start gap-x-2 ">
-        <div className="cursor-pointer transition hover:drop-shadow-md">
+        <div
+          onClick={onMemberClick}
+          className="cursor-pointer transition hover:drop-shadow-md"
+        >
           <UserAvatar src={member.profile.imageUrl} />
         </div>
         <div className="flex w-full flex-col">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center">
-              <p className="cursor-pointer text-sm font-semibold hover:underline">
+              <p
+                onClick={onMemberClick}
+                className="cursor-pointer text-sm font-semibold hover:underline"
+              >
                 {member.profile.name}
               </p>
               <ActionTooltip label={member.role}>
