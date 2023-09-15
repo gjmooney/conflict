@@ -45,6 +45,7 @@ const roleIconMap = {
   MODERATOR: <ShieldCheck className="ml-2 h-4 w-4" />,
   ADMIN: <ShieldAlert className="ml-2 h-4 w-4" />,
 };
+
 const MembersModal = ({}: MembersModalProps) => {
   const router = useRouter();
   const { isOpen, type, data, onOpen, onClose } = useModal();

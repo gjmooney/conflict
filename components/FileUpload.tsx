@@ -32,7 +32,7 @@ const FileUpload = ({ value, endpoint, onChange }: FileUploadProps) => {
 
   if (value && fileType === "pdf") {
     return (
-      <div className="relative mt-2 flex items-center rounded-md p-2">
+      <div className="relative mt-2 flex items-center rounded-md bg-muted/50 p-2">
         <FileIcon className="h-10 w-10 " />
         <a
           href={value}
