@@ -99,6 +99,8 @@ const ChatItem = ({
       });
 
       await axios.patch(url, values);
+      form.reset();
+      setIsEditing(false);
     } catch (error) {
       console.log(error);
     }
